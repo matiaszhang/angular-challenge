@@ -1,0 +1,9 @@
+<!-- app.component.html -->
+
+<ng-container *ngIf="authService.isAuthenticated(); else showLogin">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+</ng-container>
+<ng-template #showLogin>
+  <router-outlet></router-outlet>
+</ng-template>
