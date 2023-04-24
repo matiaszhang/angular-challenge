@@ -1,29 +1,64 @@
 <div class="login-container">
   <h2>Login</h2>
-  <form (submit)="login()">
-    <mat-form-field>
+  <form (submit)="login()" class="login-form">
+    <mat-form-field class="login-form-input">
       <mat-label>Email</mat-label>
-      <input matInput [(ngModel)]="email" [formControl]="emailFormControl" name="email" type="email" required />
-      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+      <input
+        matInput
+        [(ngModel)]="email"
+        [formControl]="emailFormControl"
+        name="email"
+        type="email"
+        placeholder="Enter your email"
+        required
+      />
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')
+        "
+      >
         Please enter a valid email address
       </mat-error>
       <mat-error *ngIf="emailFormControl.hasError('required')">
         Email is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="login-form-input">
       <mat-label>Password</mat-label>
       <input
         matInput
         [(ngModel)]="password"
-        name="password"
+        [formControl]="pwdFormControl"
+        [type]="hide ? 'password' : 'text'"
         type="password"
+        placeholder="Enter password"
         required
       />
       <mat-error *ngIf="pwdFormControl.hasError('required')">
         Password is <strong>required</strong>
       </mat-error>
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Login</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="login-submit"
+    >
+      Log in
+    </button>
+    <span
+      >Don't have an account? <a href="/register" target="">Sign Up</a></span
+    >
   </form>
 </div>

@@ -1,0 +1,24 @@
+.register-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.register-form-input {
+  min-width: 350px;
+  border-radius: 50%;
+}
+
+.register-form-submit {
+  width: 100%;
+  height: 40px;
+}

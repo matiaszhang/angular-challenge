@@ -1,18 +1,93 @@
 <div class="register-container">
   <h2>Register</h2>
-  <form (ngSubmit)="register()">
-    <mat-form-field>
+  <form (ngSubmit)="register()" class="register-form">
+    <mat-form-field class="register-form-input">
       <mat-label>Email</mat-label>
-      <input matInput [(ngModel)]="email" name="email" type="email" required />
+      <input
+        matInput
+        [(ngModel)]="email"
+        [formControl]="emailFormControl"
+        name="email"
+        type="email"
+        required
+      />
+      <mat-error
+        *ngIf="
+          emailFormControl.hasError('email') &&
+          !emailFormControl.hasError('required')
+        "
+      >
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="register-form-input">
       <mat-label>Password</mat-label>
-      <input matInput [(ngModel)]="password" name="password" type="password" required />
+      <input
+        matInput
+        [(ngModel)]="password"
+        [formControl]="pwdFormControl"
+        [type]="pwdHide ? 'password' : 'text'"
+        name="password"
+        type="password"
+        required
+      />
+      <mat-error *ngIf="pwdFormControl.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="pwdFormControl.hasError('minlength')">
+        Password must be at least 8 characters long
+      </mat-error>
+      <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (click)="pwdHide = !pwdHide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="pwdHide"
+      >
+        <mat-icon>{{ pwdHide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="register-form-input">
       <mat-label>Confirm Password</mat-label>
-      <input matInput [(ngModel)]="confirmPassword" name="confirmPassword" type="password" required />
+      <input
+        matInput
+        [(ngModel)]="confirmPassword"
+        [formControl]="rePwdFormControl"
+        [appPasswordMatch]="pwdFormControl"
+        [type]="rePwdHide ? 'password' : 'text'"
+        name="confirmPassword"
+        type="password"
+        required
+      />
+      <mat-error *ngIf="rePwdFormControl.hasError('required')">
+        Confirm Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="rePwdFormControl.hasError('mismatch')">
+        Passwords do not match
+      </mat-error>
+      <button
+        matSuffix
+        mat-icon-button
+        type="button"
+        (click)="rePwdHide = !rePwdHide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="rePwdHide"
+      >
+        <mat-icon>{{ pwdHide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Register</button>
+    <button
+      type="submit"
+      class="register-form-submit"
+      mat-raised-button
+      color="primary"
+    >
+      Register
+    </button>
+    <span>Already have an account? <a href="/login" target="">Log In</a></span>
   </form>
 </div>

@@ -25,6 +25,7 @@ import { AuthService } from './services/auth.service';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { ToastService } from './services/toast.service';
+import { PasswordMatchDirective } from './services/password-match.directive';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ToastService } from './services/toast.service';
     LoginComponent,
     RegisterComponent,
     HeaderComponent,
+    PasswordMatchDirective,
   ],
   imports: [
     BrowserModule,
@@ -52,13 +54,17 @@ import { ToastService } from './services/toast.service';
     ReactiveFormsModule,
     RouterModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
   ],
-  providers: [AuthService, ToastService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+  providers: [
+    AuthService,
+    ToastService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
