@@ -1,9 +1,30 @@
 .product-list-container {
+  position: relative;
   padding: 10px;
+  height: calc(100% - 100px);
 }
 
 .add-product-button {
   position: absolute;
   right: 50px;
   bottom: 50px;
+}
+
+.empty-table-message {
+  font-size: 50px;
+  font-weight: bold;
+  color: #ddd;
+}
+
+.product-list-card {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.product-list-table {
+  align-self: flex-start;
 }

@@ -28,6 +28,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { ToastService } from './services/toast.service';
 import { PasswordMatchDirective } from './services/password-match.directive';
 import { ProductService } from './services/product.service';
+import { AuthGuard } from './services/auth.guard';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ProductService } from './services/product.service';
   ],
   providers: [
     AuthService,
+    AuthGuard,
     ProductService,
     ToastService,
     {

@@ -1,6 +1,10 @@
 <div class="product-list-container">
-  <mat-card>
-    <mat-table [dataSource]="products" class="mat-elevation-z8">
+  <mat-card class="product-list-card">
+    <mat-table
+      [dataSource]="products"
+      class="mat-elevation-z8 product-list-table"
+      *ngIf="products && products.length > 0; else emptyTable"
+    >
       <!-- No Column -->
       <ng-container matColumnDef="index">
         <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
@@ -45,6 +49,9 @@
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
+    <ng-template #emptyTable>
+      <span class="empty-table-message">No products found.</span>
+    </ng-template>
   </mat-card>
   <a href="/product-add" mat-fab color="accent" class="add-product-button">
     <mat-icon>add</mat-icon>

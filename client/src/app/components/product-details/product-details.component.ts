@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/services/product.service';
@@ -15,7 +14,6 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location,
     private toastService: ToastService,
     @Inject('ProductService') private productService: any
   ) {}
@@ -43,6 +41,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   handleClose(): void {
-    this.location.back();
+    this.router.navigate(['/products']);
   }
 }

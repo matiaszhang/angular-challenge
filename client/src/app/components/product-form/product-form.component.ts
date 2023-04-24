@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import {
   Component,
   OnInit,
@@ -30,7 +29,6 @@ export class ProductFormComponent implements OnInit {
     private toastService: ToastService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location,
     @Inject('ProductService') private productService: any
   ) {
     this.productForm = this.fb.group({
@@ -88,6 +86,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   handleClose(): void {
-    this.location.back();
+    this.router.navigate(['/products']);
   }
 }
