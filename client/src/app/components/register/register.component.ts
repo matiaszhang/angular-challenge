@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
           this.toastService.makeToast('Registered successfully', 'Close', 3000);
           this.router.navigate(['/']);
         },
-        (error: any) => {
+        ({ error }: any) => {
           this.toastService.makeToast(error.message, 'Close', 3000);
         }
       );

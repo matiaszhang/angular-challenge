@@ -1,0 +1,9 @@
+.product-list-container {
+  padding: 10px;
+}
+
+.add-product-button {
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+}

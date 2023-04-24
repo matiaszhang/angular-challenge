@@ -1,6 +1,5 @@
-<div class="container">
+<div class="product-list-container">
   <mat-card>
-    <mat-card-title>Product List</mat-card-title>
     <mat-table [dataSource]="products" class="mat-elevation-z8">
       <!-- Name Column -->
       <ng-container matColumnDef="name">
@@ -26,4 +25,7 @@
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
     </mat-table>
   </mat-card>
+  <a href="/product-add" mat-fab color="accent" class="add-product-button">
+    <mat-icon>add</mat-icon>
+  </a>
 </div>

@@ -28,16 +28,19 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    this.authService.login(this.email, this.password).subscribe(
-      (response: any) => {
-        this.toastService.makeToast('Logged in successfully', 'Close', 5000);
-        this.router.navigate(['products']);
-      },
-      (error: any) => {
-        console.log(error);
-        this.toastService.makeToast(error.message, 'Close', 5000);
-        this.router.navigate(['/']);
-      }
-    );
+    if (this.emailFormControl.valid && this.pwdFormControl.valid) {
+      this.authService.login(this.email, this.password).subscribe(
+        (response: any) => {
+          this.toastService.makeToast('Logged in successfully', 'Close', 3000);
+          this.router.navigate(['products']);
+        },
+        ({ error }: any) => {
+          this.toastService.makeToast(error.message, 'Close', 3000);
+          this.router.navigate(['/']);
+        }
+      );
+    } else {
+      this.toastService.makeToast('Please input correctly', 'Close', 300);
+    }
   }
 }
