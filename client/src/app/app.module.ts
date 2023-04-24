@@ -26,6 +26,7 @@ import { AuthInterceptor } from './services/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { ToastService } from './services/toast.service';
 import { PasswordMatchDirective } from './services/password-match.directive';
+import { ProductService } from './services/product.service';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { PasswordMatchDirective } from './services/password-match.directive';
   ],
   providers: [
     AuthService,
+    ProductService,
     ToastService,
     {
       provide: HTTP_INTERCEPTORS,

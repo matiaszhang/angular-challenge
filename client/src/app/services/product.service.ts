@@ -10,37 +10,46 @@ export interface Product {
 
 const apiUrl = 'http://localhost:3000/api/products';
 
-function getProducts(http: HttpClient): Observable<Product[]> {
+const getProducts = (http: HttpClient) => (): Observable<Product[]> => {
   return http.get<Product[]>(apiUrl);
-}
+};
 
-function getProduct(http: HttpClient, id: string): Observable<Product> {
-  return http.get<Product>(`${apiUrl}/${id}`);
-}
+const getProduct =
+  (http: HttpClient) =>
+  (id: string): Observable<Product> => {
+    return http.get<Product>(`${apiUrl}/${id}`);
+  };
 
-function createProduct(
-  http: HttpClient,
-  product: Partial<Product>
-): Observable<Product> {
-  return http.post<Product>(apiUrl, product);
-}
+const createProduct =
+  (http: HttpClient) =>
+  (product: Partial<Product>): Observable<Product> => {
+    return http.post<Product>(apiUrl, product);
+  };
 
-function updateProduct(
-  http: HttpClient,
-  id: string,
-  product: Partial<Product>
-): Observable<Product> {
-  return http.put<Product>(`${apiUrl}/${id}`, product);
-}
+const updateProduct =
+  (http: HttpClient) =>
+  (id: string, product: Partial<Product>): Observable<Product> => {
+    return http.put<Product>(`${apiUrl}/${id}`, product);
+  };
 
-function deleteProduct(http: HttpClient, id: string): Observable<void> {
-  return http.delete<void>(`${apiUrl}/${id}`);
-}
+const deleteProduct =
+  (http: HttpClient) =>
+  (id: string): Observable<void> => {
+    return http.delete<void>(`${apiUrl}/${id}`);
+  };
 
-export const productService = {
-  getProducts,
-  getProduct,
-  createProduct,
-  updateProduct,
-  deleteProduct,
+export const productServiceFactory = (http: HttpClient) => {
+  return {
+    getProducts: getProducts(http),
+    getProduct: getProduct(http),
+    createProduct: createProduct(http),
+    updateProduct: updateProduct(http),
+    deleteProduct: deleteProduct(http),
+  };
+};
+
+export const ProductService = {
+  provide: 'ProductService',
+  useFactory: productServiceFactory,
+  deps: [HttpClient],
 };

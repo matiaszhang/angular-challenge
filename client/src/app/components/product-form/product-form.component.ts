@@ -1,7 +1,15 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  Inject,
+} from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Product, productService } from 'src/app/services/product.service';
+import { Router } from '@angular/router';
+import { Product } from 'src/app/services/product.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-product-form',
@@ -14,7 +22,12 @@ export class ProductFormComponent implements OnInit {
 
   productForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(
+    private fb: FormBuilder,
+    private toastService: ToastService,
+    private router: Router,
+    @Inject('ProductService') private productService: any
+  ) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
@@ -33,26 +46,30 @@ export class ProductFormComponent implements OnInit {
       const productData: Product = this.productForm.value;
 
       if (this.product && this.product._id) {
-        productService
-          .updateProduct(this.http, this.product._id, productData)
+        this.productService
+          .updateProduct(this.product._id, productData)
           .subscribe(
-            (updatedProduct) => {
-              this.onSubmit.emit(updatedProduct);
+            (updatedProduct: any) => {
+              this.toastService.makeToast('Product updated', 'Close', 3000);
+              this.router.navigate(['/products']);
             },
-            (error) => {
-              console.error('Error updating product:', error);
+            ({ error }: any) => {
+              this.toastService.makeToast(error.message, 'Close', 3000);
             }
           );
       } else {
-        productService.createProduct(this.http, productData).subscribe(
-          (createdProduct) => {
-            this.onSubmit.emit(createdProduct);
+        this.productService.createProduct(productData).subscribe(
+          (createdProduct: any) => {
+            this.toastService.makeToast('New product created', 'Close', 3000);
+            this.router.navigate(['/products']);
           },
-          (error) => {
-            console.error('Error creating product:', error);
+          ({ error }: any) => {
+            this.toastService.makeToast(error.message, 'Close', 3000);
           }
         );
       }
+    } else {
+      this.toastService.makeToast('Please input correctly', 'Close', 3000);
     }
   }
 }

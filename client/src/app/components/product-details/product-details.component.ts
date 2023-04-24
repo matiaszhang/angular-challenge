@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Product, productService } from 'src/app/services/product.service';
+import { Product } from 'src/app/services/product.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-product-details',
@@ -11,7 +11,11 @@ import { Product, productService } from 'src/app/services/product.service';
 export class ProductDetailsComponent implements OnInit {
   product: Product | null = null;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private toastService: ToastService,
+    @Inject('ProductService') private productService: any
+  ) {}
 
   ngOnInit(): void {
     this.loadProduct();
@@ -20,12 +24,12 @@ export class ProductDetailsComponent implements OnInit {
   loadProduct(): void {
     const productId = this.route.snapshot.paramMap.get('id');
     if (productId) {
-      productService.getProduct(this.http, productId).subscribe(
-        (product) => {
+      this.productService.getProduct(productId).subscribe(
+        (product: any) => {
           this.product = product;
         },
-        (error) => {
-          console.error('Error fetching product:', error);
+        ({ error }: any) => {
+          this.toastService.makeToast(error.message, 'Close', 3000);
         }
       );
     }

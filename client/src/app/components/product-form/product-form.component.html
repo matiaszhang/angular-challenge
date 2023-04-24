@@ -1,52 +1,48 @@
-<form [formGroup]="productForm" (ngSubmit)="submit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name" />
-    <mat-error
-      *ngIf="
-        productForm.get('name')?.invalid && productForm.get('name')?.touched
-      "
-    >
-      Name is required
-    </mat-error>
-  </mat-form-field>
+<div class="product-form-container">
+  <form [formGroup]="productForm" (ngSubmit)="submit()" class="product-form">
+    <mat-form-field appearance="fill" class="product-form-input">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error
+        *ngIf="
+          productForm.get('name')?.invalid && productForm.get('name')?.touched
+        "
+      >
+        Name is required
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Description</mat-label>
-    <textarea matInput formControlName="description"></textarea>
-    <mat-error
-      *ngIf="
-        productForm.get('description')?.invalid &&
-        productForm.get('description')?.touched
-      "
-    >
-      Description is required
-    </mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>Price</mat-label>
-    <input matInput type="number" formControlName="price" />
-    <mat-error
-      *ngIf="
-        productForm.get('price')?.invalid && productForm.get('price')?.touched
-      "
-    >
-      <div *ngIf="productForm.get('price')?.errors?.['required']">
+    <mat-form-field appearance="fill" class="product-form-input">
+      <mat-label>Price</mat-label>
+      <input matInput type="number" formControlName="price" min="0" />
+      <mat-error *ngIf="productForm.get('price')?.errors?.['required']">
         Price is required
-      </div>
-      <div *ngIf="productForm.get('price')?.errors?.['min']">
+      </mat-error>
+      <mat-error *ngIf="productForm.get('price')?.errors?.['min']">
         Price must be greater than or equal to 0
-      </div>
-    </mat-error>
-  </mat-form-field>
+      </mat-error>
+    </mat-form-field>
 
-  <button
-    mat-raised-button
-    color="primary"
-    type="submit"
-    [disabled]="productForm.invalid"
-  >
-    {{ product?._id ? "Update" : "Create" }} Product
-  </button>
-</form>
+    <mat-form-field appearance="fill" class="product-form-input">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description"></textarea>
+      <mat-error
+        *ngIf="
+          productForm.get('description')?.invalid &&
+          productForm.get('description')?.touched
+        "
+      >
+        Description is required
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="product-form-button"
+    >
+      {{ product?._id ? "Update" : "Create" }} Product
+    </button>
+  </form>
+</div>

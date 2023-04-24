@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Product, productService } from 'src/app/services/product.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Product } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -11,18 +10,18 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   displayedColumns: string[] = ['name', 'description', 'price'];
 
-  constructor(private http: HttpClient) {}
+  constructor(@Inject('ProductService') private productService: any) {}
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
   loadProducts(): void {
-    productService.getProducts(this.http).subscribe(
-      (products) => {
+    this.productService.getProducts().subscribe(
+      (products: any) => {
         this.products = products;
       },
-      (error) => {
+      ({ error }: any) => {
         console.error('Error fetching products:', error);
       }
     );

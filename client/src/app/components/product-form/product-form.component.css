@@ -1,0 +1,24 @@
+.product-form-container {
+  height: calc(100% - 64px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.product-form-input {
+  min-width: 350px;
+}
+
+.product-form-button {
+  width: 350px;
+  height: 40px;
+}
