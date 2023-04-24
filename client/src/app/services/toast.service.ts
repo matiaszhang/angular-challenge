@@ -12,7 +12,7 @@ export class ToastService {
   makeToast(message: string, action: string = "Close", duration: number = 5000) {
     this.snackBar.open(message,action, {
       duration,
-      horizontalPosition: 'right',
+      horizontalPosition: 'center',
       verticalPosition: 'top',
     });
   }
