@@ -13,7 +13,7 @@ export enum PRODUCT_ACTION {
   DELETE = 'delete',
 }
 
-const apiUrl = 'http://localhost:3000/api/products';
+const apiUrl = `${process.env['SERVER_URL']}/api/products`;
 
 const getProducts = (http: HttpClient) => (): Observable<Product[]> => {
   return http.get<Product[]>(apiUrl);

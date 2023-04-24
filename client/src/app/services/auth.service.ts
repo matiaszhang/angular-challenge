@@ -2,21 +2,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-const apiURL = 'http://localhost:3000/api/auth';
+const apiURL = `${process.env['SERVER_URL']}/api/auth`;
 
-const register = (http: HttpClient) => (email: string, password: string): Observable<any> => {
-  return http.post(`${apiURL}/register`, { email, password });
-};
+const register =
+  (http: HttpClient) =>
+  (email: string, password: string): Observable<any> => {
+    return http.post(`${apiURL}/register`, { email, password });
+  };
 
-const login = (http: HttpClient) => (email: string, password: string): Observable<any> => {
-  return http
-    .post<{ token: string }>(`${apiURL}/login`, { email, password })
-    .pipe(
-      tap(({ token }) => {
-        localStorage.setItem('access_token', token);
-      })
-    );
-};
+const login =
+  (http: HttpClient) =>
+  (email: string, password: string): Observable<any> => {
+    return http
+      .post<{ token: string }>(`${apiURL}/login`, { email, password })
+      .pipe(
+        tap(({ token }) => {
+          localStorage.setItem('access_token', token);
+        })
+      );
+  };
 
 const logout = (): void => {
   localStorage.removeItem('access_token');

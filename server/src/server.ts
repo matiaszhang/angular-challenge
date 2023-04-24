@@ -5,7 +5,7 @@ import { productRoutes } from "./routes/product.routes";
 import { authRoutes } from "./routes/auth.routes";
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 443;
 
 // Connect to MongoDB
 const uri = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/testdatabase";
