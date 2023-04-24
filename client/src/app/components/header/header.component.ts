@@ -16,4 +16,8 @@ export class HeaderComponent {
     this.authService.logout();
     this.router.navigate(['/']);
   }
+
+  handleHome(): void {
+    this.router.navigate(['/products']);
+  }
 }

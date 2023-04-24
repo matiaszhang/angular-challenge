@@ -1,6 +1,12 @@
 <div class="product-list-container">
   <mat-card>
     <mat-table [dataSource]="products" class="mat-elevation-z8">
+      <!-- No Column -->
+      <ng-container matColumnDef="index">
+        <mat-header-cell *matHeaderCellDef>#</mat-header-cell>
+        <mat-cell *matCellDef="let i = index">{{ i + 1 }}</mat-cell>
+      </ng-container>
+
       <!-- Name Column -->
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
@@ -19,6 +25,21 @@
         <mat-cell *matCellDef="let product">{{
           product.price | currency
         }}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
+        <mat-cell *matCellDef="let product">
+          <button mat-icon-button (click)="handleView(product._id)">
+            <mat-icon>launch</mat-icon>
+          </button>
+          <button mat-icon-button (click)="handleEdit(product._id)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="handleDelete(product._id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

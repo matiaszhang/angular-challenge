@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 
@@ -52,6 +53,7 @@ import { ProductService } from './services/product.service';
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
+    MatDividerModule,
     ReactiveFormsModule,
     RouterModule,
     AppRoutingModule,

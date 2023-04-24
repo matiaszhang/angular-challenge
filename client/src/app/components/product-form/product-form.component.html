@@ -45,4 +45,7 @@
       {{ product?._id ? "Update" : "Create" }} Product
     </button>
   </form>
+  <button mat-icon-button class="product-form-close" (click)="handleClose()">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>

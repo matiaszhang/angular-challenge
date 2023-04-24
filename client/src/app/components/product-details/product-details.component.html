@@ -1,11 +1,24 @@
-<div *ngIf="product" class="container">
-  <mat-card>
+<div *ngIf="product" class="product-details-container">
+  <mat-card class="product-details-card">
     <mat-card-header>
       <mat-card-title>{{ product.name }}</mat-card-title>
     </mat-card-header>
-    <mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-content class="product-details-card-content">
       <p>{{ product.description }}</p>
       <p><strong>Price:</strong> {{ product.price | currency }}</p>
     </mat-card-content>
+    <mat-card-actions>
+      <button
+        mat-stroked-button
+        class="product-details-edit"
+        (click)="handleEdit()"
+      >
+        Edit Product
+      </button>
+    </mat-card-actions>
   </mat-card>
+  <button mat-icon-button class="product-details-close" (click)="handleClose()">
+    <mat-icon>close</mat-icon>
+  </button>
 </div>

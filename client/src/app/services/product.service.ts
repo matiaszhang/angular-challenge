@@ -8,6 +8,11 @@ export interface Product {
   price: number;
 }
 
+export enum PRODUCT_ACTION {
+  EDIT = 'edit',
+  DELETE = 'delete',
+}
+
 const apiUrl = 'http://localhost:3000/api/products';
 
 const getProducts = (http: HttpClient) => (): Observable<Product[]> => {

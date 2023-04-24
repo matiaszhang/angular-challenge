@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Product } from 'src/app/services/product.service';
+import { Router } from '@angular/router';
+import { PRODUCT_ACTION, Product } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -8,9 +9,18 @@ import { Product } from 'src/app/services/product.service';
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
-  displayedColumns: string[] = ['name', 'description', 'price'];
+  displayedColumns: string[] = [
+    'index',
+    'name',
+    'description',
+    'price',
+    'action',
+  ];
 
-  constructor(@Inject('ProductService') private productService: any) {}
+  constructor(
+    @Inject('ProductService') private productService: any,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -24,6 +34,23 @@ export class ProductListComponent implements OnInit {
       ({ error }: any) => {
         console.error('Error fetching products:', error);
       }
+    );
+  }
+
+  handleView(id: string): void {
+    this.router.navigate([`product/${id}`]);
+  }
+
+  handleEdit(id: string): void {
+    this.router.navigate([`product-edit/${id}`]);
+  }
+
+  handleDelete(id: string): void {
+    this.productService.deleteProduct(id).subscribe(
+      (products: any) => {
+        this.products = products;
+      },
+      ({ error }: any) => {}
     );
   }
 }

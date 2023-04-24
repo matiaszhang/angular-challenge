@@ -1,0 +1,29 @@
+.product-details-container {
+  height: calc(100% - 64px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-details-close {
+  position: absolute;
+  top: 110px;
+  right: 50px;
+  border: 1px solid #ddd;
+}
+
+.product-details-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 500px;
+}
+
+.product-details-card-content {
+  overflow-y: auto;
+  height: 400px;
+}
+
+.product-details-edit {
+  width: 100%;
+}

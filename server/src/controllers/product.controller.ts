@@ -65,7 +65,8 @@ export async function deleteProduct(req: Request, res: Response) {
       return;
     }
 
-    res.status(200).send("Product deleted");
+    const products = await Product.find();
+    res.json(products);
   } catch (error) {
     res.status(500).send(error);
   }
